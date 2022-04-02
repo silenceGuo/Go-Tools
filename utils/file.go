@@ -9,13 +9,14 @@ import (
 )
 
 // go my file tools...111
-func ReadFilebufe(filepath string) *[]string {
+func ReadFilebufe(filepath string) (*[]string, error) {
 	//读取文件，返回 切片指针
 	filesile := make([]string, 1)
 	file, err := os.Open(filepath)
 	defer file.Close()
 	if err != nil {
 		fmt.Println("open file err=", err)
+		return nil, err
 	}
 	const defaultBufSize = 4096
 	reader := bufio.NewReader(file)
@@ -29,7 +30,7 @@ func ReadFilebufe(filepath string) *[]string {
 		filesile = append(filesile, str)
 	}
 	fmt.Println("文件读取结束")
-	return &filesile
+	return &filesile, nil
 }
 func WriteFile(filepath string, inputstr interface{}) {
 	// 文件追加内容，没有新建
@@ -73,14 +74,14 @@ func Copy(src string, dst string) (written int64, err error) {
 	defer srcFile.Close()
 	if err != nil {
 		fmt.Println("open file err=", err)
-		return
+		return 0, err
 	}
 	reader := bufio.NewReader(srcFile)
 	dstfile, err := os.OpenFile(dst, os.O_WRONLY|os.O_CREATE, 0666)
 	defer dstfile.Close()
 	if err != nil {
 		fmt.Println("open file err=", err)
-		return
+		return 0, err
 	}
 	writer := bufio.NewWriter(dstfile)
 	return io.Copy(writer, reader)
