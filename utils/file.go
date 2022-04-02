@@ -9,8 +9,6 @@ import (
 )
 
 // go my file tools...111
-var d string
-
 func ReadFilebufe(filepath string) *[]string {
 	//读取文件，返回 切片指针
 	filesile := make([]string, 1)
