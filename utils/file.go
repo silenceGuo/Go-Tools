@@ -2,11 +2,35 @@ package utils
 
 import (
 	"bufio"
+	//"devops-go/global"
 	"fmt"
+	"github.com/prometheus/tsdb/fileutil"
 	"io"
 	"os"
+	"sort"
 	"strings"
 )
+
+func DirExist(pathstr string) (bool, error) {
+	_, err := os.Stat(pathstr)
+	if err == nil {
+		//ZapLogger.Info()
+		//ZapLogger.Info("目录存在:",pathstr)
+		return true, err
+	}
+	//ZapLogger.Info("目录不存在:",pathstr)
+	return false, err
+}
+func IsHave(target string, str_array []string) bool {
+	sort.Strings(str_array)
+	index := sort.SearchStrings(str_array, target)
+	//index的取值：0 ~ (len(str_array)-1)
+	return index < len(str_array) && str_array[index] == target
+}
+
+func CreateDir(InitFartherDir string) error {
+	return os.MkdirAll(InitFartherDir, 0o755)
+}
 
 // go my file tools...111
 func ReadFilebufe(filepath string) (*[]string, error) {
@@ -85,4 +109,17 @@ func Copy(src string, dst string) (written int64, err error) {
 	}
 	writer := bufio.NewWriter(dstfile)
 	return io.Copy(writer, reader)
+}
+func CopyDirs(src, dst string) error {
+	if b, err := DirExist(src); !b {
+		ZapLogger.Error("目录不存在:", err)
+		return err
+	}
+	err := fileutil.CopyDirs(src, dst)
+	if err != nil {
+		ZapLogger.Error("复制目录错误:", err)
+		return err
+	}
+	ZapLogger.Info(fmt.Sprintf("复制目录:%s至:%s", src, dst))
+	return nil
 }
