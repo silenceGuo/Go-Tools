@@ -1,2 +1,2 @@
-./logs
 go.sum
+/logs/
