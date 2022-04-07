@@ -1,18 +1,29 @@
 package main
 
 import (
-	//"MyGoProject/Go-Tools/utils"
-	"fmt"
 	"github.com/silenceGuo/Go-Tools/utils"
+	//"/myGoProject/Go-Tools/utils"
 )
 
 func main() {
-	f := *utils.ReadFilebufe("C:\\Users\\Administrator\\Desktop\\startServerdev1.yml")
-	for _, v := range f {
-		fmt.Printf("%s", string(v))
-	}
-	var s []string
-	s = append(s, "1", "12easdad")
-	utils.WriteFile("C:\\Users\\Administrator\\Desktop\\1.TXT", 3)
-	fmt.Println(utils.PathExists("C:\\Users\\Administrator\\Desktop\\1.TXT1"))
+
+	utils.InitLogger()
+	//utils.ZapLogger.Info("aaa")
+	//utils.ZapLogger.Info("11","ss")
+	//utils.ExecCommand("ping1 www.baidu.com","/")
+	//utils.ExecCommandlast("ping www.baidu.com","/")
+	//utils.ExecCommand("df1 -h","/")
+	//utils.ExecCommand2("df -h","/")
+	//fmt.Println(utils.ExecCommand("ping www.baidu.com -c 5","/"))
+	//utils.ExecCommand2("ping www.baidu.com -c 5","/")
+	//utils.ExecCommand3("ping www.baidu.com","/")
+	//utils.GetYAML("C:\\Users\\Administrator\\Desktop\\nginxConf-dev.yml")
+	//date :=make(map[string]interface{},2)
+
+	data := make(map[string]interface{})
+	//xmx := project.Requests.StartMemory
+	data["pinpointid"] = "asd"
+	data["xms"] = 123
+	data["xmx"] = 1235
+	utils.GenFileFromTmp("D:\\MyGoProject\\devops-go\\templates\\catalina.sh.tmp2", data, "C:\\Users\\Administrator\\Desktop\\catalina.sh")
 }
