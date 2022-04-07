@@ -1,2 +1,0 @@
-2022-04-07T10:39:54.632+0800	INFO	utils/genfilefromTmp.go:28	模板文件:D:\MyGoProject\devops-go\templates\catalina.sh.tmp2
-2022-04-07T10:39:54.677+0800	INFO	utils/genfilefromTmp.go:42	生成模板文件:C:\Users\Administrator\Desktop\catalina.sh
