@@ -28,11 +28,11 @@ func getEncoder() zapcore.Encoder {
 
 func getLogWriter() zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
-		Filename:   "D:\\MyGoProject\\logs\\test.log", // ⽇志⽂件路径
-		MaxSize:    1,                                 // 1M=1024KB=1024000byte
-		MaxBackups: 5,                                 // 最多保留5个备份
-		MaxAge:     30,                                // days
-		Compress:   false,                             // 是否压缩 disabled by default
+		Filename:   ".\\utils.log", // ⽇志⽂件路径
+		MaxSize:    1,              // 1M=1024KB=1024000byte
+		MaxBackups: 5,              // 最多保留5个备份
+		MaxAge:     30,             // days
+		Compress:   false,          // 是否压缩 disabled by default
 	}
 	//return zapcore.AddSync(lumberJackLogger)//只输出到文件
 	//输出到控制台和文件

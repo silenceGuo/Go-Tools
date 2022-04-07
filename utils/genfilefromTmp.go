@@ -12,7 +12,6 @@ func FileCreate(content bytes.Buffer, name string) error {
 	file, err := os.Create(name)
 	if err != nil {
 		ZapLogger.Error("错误信息:", err)
-
 		return err
 	}
 	_, err = file.WriteString(content.String())

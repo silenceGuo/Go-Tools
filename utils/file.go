@@ -2,8 +2,7 @@ package utils
 
 import (
 	"bufio"
-	//"devops-go/global"
-	"fmt"
+
 	"github.com/prometheus/tsdb/fileutil"
 	"io"
 	"os"
@@ -15,10 +14,11 @@ func DirExist(pathstr string) (bool, error) {
 	_, err := os.Stat(pathstr)
 	if err == nil {
 		//ZapLogger.Info()
-		//ZapLogger.Info("目录存在:",pathstr)
+		ZapLogger.Info("目录存在:", pathstr)
+		//fmt.Println("目录存在:",pathstr)
 		return true, err
 	}
-	//ZapLogger.Info("目录不存在:",pathstr)
+	ZapLogger.Error("目录不存在:", err)
 	return false, err
 }
 func IsHave(target string, str_array []string) bool {
@@ -39,7 +39,7 @@ func ReadFilebufe(filepath string) (*[]string, error) {
 	file, err := os.Open(filepath)
 	defer file.Close()
 	if err != nil {
-		fmt.Println("open file err=", err)
+		ZapLogger.Error("open file err=", err)
 		return nil, err
 	}
 	const defaultBufSize = 4096
@@ -53,14 +53,14 @@ func ReadFilebufe(filepath string) (*[]string, error) {
 		str = strings.Trim(str, "\n")
 		filesile = append(filesile, str)
 	}
-	fmt.Println("文件读取结束")
+	ZapLogger.Info("文件读取结束")
 	return &filesile, nil
 }
 func WriteFile(filepath string, inputstr interface{}) {
 	// 文件追加内容，没有新建
 	file, err := os.OpenFile(filepath, os.O_RDWR|os.O_APPEND, 0666)
 	if err != nil {
-		fmt.Println("write file err=", err)
+		ZapLogger.Error("write file err=", err)
 		file, _ = os.OpenFile(filepath, os.O_CREATE, 0666)
 	}
 	defer file.Close()
@@ -75,7 +75,7 @@ func WriteFile(filepath string, inputstr interface{}) {
 			write.WriteString(input + "\n")
 		}
 	default:
-		fmt.Println("inputstr only string | []string")
+		ZapLogger.Error("inputstr only string | []string")
 	}
 	write.Flush()
 }
@@ -97,14 +97,14 @@ func Copy(src string, dst string) (written int64, err error) {
 	srcFile, err := os.Open(src)
 	defer srcFile.Close()
 	if err != nil {
-		fmt.Println("open file err=", err)
+		ZapLogger.Error("open file err=", err)
 		return 0, err
 	}
 	reader := bufio.NewReader(srcFile)
 	dstfile, err := os.OpenFile(dst, os.O_WRONLY|os.O_CREATE, 0666)
 	defer dstfile.Close()
 	if err != nil {
-		fmt.Println("open file err=", err)
+		ZapLogger.Error("open file err=", err)
 		return 0, err
 	}
 	writer := bufio.NewWriter(dstfile)
@@ -112,7 +112,6 @@ func Copy(src string, dst string) (written int64, err error) {
 }
 func CopyDirs(src, dst string) error {
 	if b, err := DirExist(src); !b {
-		ZapLogger.Error("目录不存在:", err)
 		return err
 	}
 	err := fileutil.CopyDirs(src, dst)
@@ -120,6 +119,6 @@ func CopyDirs(src, dst string) error {
 		ZapLogger.Error("复制目录错误:", err)
 		return err
 	}
-	ZapLogger.Info(fmt.Sprintf("复制目录:%s至:%s", src, dst))
+	ZapLogger.Info("复制目录:%s至:%s", src, dst)
 	return nil
 }

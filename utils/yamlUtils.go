@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"path/filepath"
@@ -28,11 +27,11 @@ func GetYAML(yamlPath string) *viper.Viper {
 	//Vipers.SetConfigType("json")
 	err := v.ReadInConfig()
 	if err != nil {
-		fmt.Println("err=", err)
+		ZapLogger.Error("err=", err)
 	}
 	v.WatchConfig()
 	viper.OnConfigChange(func(in fsnotify.Event) {
-		fmt.Println("配置文件被更新啦...")
+		ZapLogger.Info("配置文件被更新啦...")
 		//if err := viper.Unmarshal(Conf); err != nil {
 		//	panic(fmt.Errorf("unmarshal conf failed, err:%s \n", err))
 		//}
