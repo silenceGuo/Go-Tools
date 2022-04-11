@@ -110,12 +110,12 @@ func (c Cli) Cmd(shell string) ([]string, error) {
 		ZapLogger.Error(fmt.Sprintf("执行命令错误:%s,%s", shell, execErr))
 		return []string{}, execErr
 	}
-	e := readerout(stderr)
-	if e != nil {
-		return e, errors.New(e[0])
-	}
 	o := readerout(stdout)
-	return o, nil
+	if o != nil {
+		return o, nil
+	}
+	e := readerout(stderr)
+	return e, errors.New(e[0])
 }
 
 func readerout(read io.Reader) []string {
