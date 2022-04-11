@@ -49,6 +49,11 @@ func GetYAML(yamlPath string) *viper.Viper {
 	return v
 
 }
+func YmalToMap(vip *viper.Viper) map[string]interface{} {
+	//keysall := vip.AllKeys()
+	//key 不能有 . 否则会切分成key
+	return vip.AllSettings()
+}
 
 func WriteYaml(yamlPath string, k string, v interface{}) {
 	w := viper.New()

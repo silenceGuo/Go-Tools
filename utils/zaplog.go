@@ -9,14 +9,14 @@ import (
 
 var ZapLogger *zap.SugaredLogger
 
-func InitLogger() {
+func init() {
 	writeSyncer := getLogWriter()
 	encoder := getEncoder()
 	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 	logger := zap.New(core, zap.AddCaller())
 	ZapLogger = logger.Sugar()
 	defer ZapLogger.Sync()
-	//sugarLogger.Info("test")
+	ZapLogger.Info("初始化日志输出器...")
 }
 
 func getEncoder() zapcore.Encoder {
