@@ -12,8 +12,8 @@ func TestCli_Run(t *testing.T) {
 		"")
 	newclinet.Run("ping www.baidu.com -w 3")
 	fmt.Println(*newclinet.LastResult)
-	newclinet.Run("ls -al")
-	fmt.Println(*newclinet.LastResult)
+	//newclinet.Run("ls -als1")
+	//fmt.Println(*newclinet.LastResult)
 }
 func TestCli_Cmd(t *testing.T) {
 	newclinet := NewSshClient("root",

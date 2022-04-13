@@ -185,6 +185,7 @@ func (c *cli) Run(shell string) (*[]string, error) {
 		c.LastResult = &e
 		return c.LastResult, nil
 	}
+	c.LastResult = &e
 	return c.LastResult, errors.New(e[0])
 }
 
