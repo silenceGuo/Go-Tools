@@ -3,5 +3,6 @@ package utils
 import "testing"
 
 func TestInitLogger(t *testing.T) {
-	InitLogger()
+	//InitLogger()
+	ZapLogger.Info("test log")
 }
